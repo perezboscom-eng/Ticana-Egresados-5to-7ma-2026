@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eventos - Plataforma para Egresados</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header class="app-header">
+        <div class="marca">
+            <img src="img/logo.png" alt="Logo institución" class="logo-institucion" onerror="this.style.display='none'">
+            <div>
+                <h1>Plataforma para Egresados</h1>
+                <span class="subtitulo">Nombre de la Institución</span>
+            </div>
+        </div>
+        <div class="user-info">
+            <span id="saludoUsuario"></span>
+            <a href="admin.html" id="linkAdmin" class="hidden">Administración</a>
+            <button id="btnLogout">Cerrar sesión</button>
+        </div>
+    </header>
+
+    <nav class="main-nav">
+        <a href="index.html" class="nav-link">Inicio</a>
+        <a href="eventos.html" class="nav-link active">Eventos</a>
+        <a href="proveedores.html" class="nav-link">Proveedores</a>
+    </nav>
+
+    <main>
+        <section class="panel panel--eventos">
+            <h2><svg class="icono" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line><path d="M9 16l2 2 4-4"></path></svg> Eventos de la promoción</h2>
+            <button id="btnNuevoEvento" class="hidden btn-nuevo">+ Nuevo evento</button>
+            <div class="tabs">
+                <button class="tab-btn active" data-tipo="">Todos</button>
+                <button class="tab-btn" data-tipo="viaje">
+                    <svg class="icono" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="7" width="16" height="13" rx="2"></rect><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="4" y1="12" x2="20" y2="12"></line></svg>
+                    Viaje de egresados
+                </button>
+                <button class="tab-btn" data-tipo="cena">
+                    <svg class="icono" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"></path><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path><line x1="6" y1="1" x2="6" y2="4"></line><line x1="10" y1="1" x2="10" y2="4"></line><line x1="14" y1="1" x2="14" y2="4"></line></svg>
+                    Cena de egresados
+                </button>
+                <button class="tab-btn" data-tipo="otro">
+                    <svg class="icono" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                    Otros eventos
+                </button>
+            </div>
+            <div id="eventosGrid" class="evento-grid">
+                <p class="empty-msg">Cargando eventos...</p>
+            </div>
+        </section>
+    </main>
+
+    <script src="js/api.js"></script>
+    <script src="js/iconos.js"></script>
+    <script src="js/eventos.js"></script>
+</body>
+</html>

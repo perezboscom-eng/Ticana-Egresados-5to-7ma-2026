@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administración - Plataforma para Egresados</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header class="app-header">
+        <div class="marca">
+            <img src="img/logo.jpg" alt="Logo institución" class="logo-institucion" onerror="this.style.display='none'">
+            <div>
+                <h1>Panel de Administración</h1>
+                <span class="subtitulo">Nombre de la Institución</span>
+            </div>
+        </div>
+        <div class="user-info">
+            <a href="index.html" style="color:#fff;">Volver a mi promoción</a>
+            <button id="btnLogout">Cerrar sesión</button>
+        </div>
+    </header>
+
+    <main>
+        <nav class="admin-tabs">
+            <button class="admin-tab-btn active" data-target="seccionEventos">Eventos</button>
+            <button class="admin-tab-btn" data-target="seccionAvisos">Avisos</button>
+            <button class="admin-tab-btn" data-target="seccionEmpresas">Proveedores</button>
+            <button class="admin-tab-btn" data-target="seccionUsuarios">Usuarios</button>
+        </nav>
+
+        <section id="seccionEventos" class="panel admin-section active">
+            <h2>Nuevo / editar evento</h2>
+            <form id="eventoForm" class="admin-form">
+                <input type="hidden" id="eventoId">
+                <div>
+                    <label for="eventoTipo">Tipo</label>
+                    <select id="eventoTipo" required>
+                        <option value="viaje">Viaje de egresados</option>
+                        <option value="cena">Cena de egresados</option>
+                        <option value="otro">Otro evento</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="eventoNombre">Nombre</label>
+                    <input type="text" id="eventoNombre" required>
+                </div>
+                <div>
+                    <label for="eventoFecha">Fecha</label>
+                    <input type="text" id="eventoFecha" placeholder="dd/mm/aaaa">
+                </div>
+                <div>
+                    <label for="eventoLugar">Lugar</label>
+                    <input type="text" id="eventoLugar">
+                </div>
+                <div>
+                    <label for="eventoPrecio">Precio</label>
+                    <input type="number" id="eventoPrecio" step="0.01">
+                </div>
+                <div>
+                    <label for="eventoImagen">Imagen (nombre de archivo)</label>
+                    <input type="text" id="eventoImagen" placeholder="ej: bariloche.jpg" oninput="previsualizarImagen('eventoImagen', 'eventoImagenPreview')">
+                    <small id="eventoImagenPreview"></small>
+                </div>
+                <div class="full">
+                    <label for="eventoDescripcion">Descripción</label>
+                    <textarea id="eventoDescripcion" rows="2"></textarea>
+                </div>
+                <div class="full">
+                    <button type="submit">Guardar evento</button>
+                    <button type="button" id="btnCancelarEvento">Cancelar edición</button>
+                </div>
+            </form>
+
+            <table class="admin-table">
+                <thead>
+                    <tr><th>Tipo</th><th>Nombre</th><th>Fecha</th><th>Lugar</th><th>Precio</th><th>Acciones</th></tr>
+                </thead>
+                <tbody id="eventosTableBody"></tbody>
+            </table>
+        </section>
+
+        <section id="seccionAvisos" class="panel admin-section">
+            <h2>Nuevo / editar aviso</h2>
+            <form id="avisoForm" class="admin-form">
+                <input type="hidden" id="avisoId">
+                <div>
+                    <label for="avisoTitulo">Título</label>
+                    <input type="text" id="avisoTitulo" required>
+                </div>
+                <div>
+                    <label for="avisoFecha">Fecha</label>
+                    <input type="text" id="avisoFecha" placeholder="dd/mm/aaaa">
+                </div>
+                <div class="full">
+                    <label for="avisoContenido">Contenido</label>
+                    <textarea id="avisoContenido" rows="2" required></textarea>
+                </div>
+                <div class="full">
+                    <button type="submit">Guardar aviso</button>
+                    <button type="button" id="btnCancelarAviso">Cancelar edición</button>
+                </div>
+            </form>
+
+            <table class="admin-table">
+                <thead>
+                    <tr><th>Título</th><th>Contenido</th><th>Fecha</th><th>Acciones</th></tr>
+                </thead>
+                <tbody id="avisosTableBody"></tbody>
+            </table>
+        </section>
+
+        <section id="seccionEmpresas" class="panel admin-section">
+            <h2>Nuevo / editar proveedor</h2>
+            <form id="empresaForm" class="admin-form">
+                <input type="hidden" id="empresaId">
+                <div>
+                    <label for="empresaCategoria">Categoría</label>
+                    <select id="empresaCategoria" required>
+                        <option value="salon">Salón</option>
+                        <option value="viaje">Viaje</option>
+                        <option value="buzos">Buzos</option>
+                        <option value="catering">Catering</option>
+                        <option value="otro">Otro</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="empresaNombre">Nombre</label>
+                    <input type="text" id="empresaNombre" required>
+                </div>
+                <div>
+                    <label for="empresaUbicacion">Ubicación</label>
+                    <input type="text" id="empresaUbicacion">
+                </div>
+                <div>
+                    <label for="empresaCapacidad">Capacidad</label>
+                    <input type="text" id="empresaCapacidad" placeholder="ej: hasta 200 personas">
+                </div>
+                <div>
+                    <label for="empresaPrecioDesde">Precio desde</label>
+                    <input type="number" id="empresaPrecioDesde" step="0.01">
+                </div>
+                <div>
+                    <label for="empresaPrecioHasta">Precio hasta</label>
+                    <input type="number" id="empresaPrecioHasta" step="0.01">
+                </div>
+                <div>
+                    <label for="empresaImagen">Imagen (nombre de archivo)</label>
+                    <input type="text" id="empresaImagen" placeholder="ej: catering1.jpg" oninput="previsualizarImagen('empresaImagen', 'empresaImagenPreview')">
+                    <small id="empresaImagenPreview"></small>
+                </div>
+                <div class="full">
+                    <label for="empresaServicios">Servicios (separados por coma)</label>
+                    <input type="text" id="empresaServicios" placeholder="ej: DJ, sonido, luces">
+                </div>
+                <div class="full">
+                    <label for="empresaDescripcion">Descripción</label>
+                    <textarea id="empresaDescripcion" rows="2"></textarea>
+                </div>
+                <div class="full">
+                    <button type="submit">Guardar proveedor</button>
+                    <button type="button" id="btnCancelarEmpresa">Cancelar edición</button>
+                </div>
+            </form>
+
+            <table class="admin-table">
+                <thead>
+                    <tr><th>Categoría</th><th>Nombre</th><th>Ubicación</th><th>Precio</th><th>Acciones</th></tr>
+                </thead>
+                <tbody id="empresasTableBody"></tbody>
+            </table>
+        </section>
+
+        <section id="seccionUsuarios" class="panel admin-section">
+            <h2>Usuarios registrados</h2>
+            <table class="admin-table">
+                <thead>
+                    <tr><th>Nombre</th><th>Usuario</th><th>Colegio / Promoción</th><th>Rol</th><th>Acciones</th></tr>
+                </thead>
+                <tbody id="usuariosTableBody"></tbody>
+            </table>
+        </section>
+    </main>
+
+    <script src="js/api.js"></script>
+    <script src="js/admin.js"></script>
+</body>
+</html>

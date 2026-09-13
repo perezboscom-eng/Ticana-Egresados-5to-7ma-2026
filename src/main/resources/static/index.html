@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio - Plataforma para Egresados</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header class="app-header">
+        <div class="marca">
+            <img src="img/logo.png" alt="Logo institución" class="logo-institucion" onerror="this.style.display='none'">
+            <div>
+                <h1>Plataforma para Egresados</h1>
+                <span class="subtitulo" id="promoSubtitulo">Nombre de la Institución</span>
+            </div>
+        </div>
+        <div class="user-info">
+            <span id="saludoUsuario"></span>
+            <a href="admin.html" id="linkAdmin" class="hidden">Administración</a>
+            <button id="btnLogout">Cerrar sesión</button>
+        </div>
+    </header>
+
+    <nav class="main-nav">
+        <a href="index.html" class="nav-link active">Inicio</a>
+        <a href="eventos.html" class="nav-link">Eventos</a>
+        <a href="proveedores.html" class="nav-link">Proveedores</a>
+    </nav>
+
+    <main>
+        <section class="hero">
+            <div>
+                <h2>Bienvenido/a</h2>
+                <p>Elegí una sección para ver los eventos de tu promoción o los proveedores disponibles.</p>
+            </div>
+        </section>
+
+        <div class="accesos-grid">
+            <a href="eventos.html" class="acceso-card">
+                <span class="acceso-icono">
+                    <svg class="icono" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line><path d="M9 16l2 2 4-4"></path></svg>
+                </span>
+                <h3>Eventos</h3>
+                <p>Viaje, cena y actividades de tu promoción.</p>
+                <span class="acceso-boton">Ver eventos →</span>
+            </a>
+            <a href="proveedores.html" class="acceso-card">
+                <span class="acceso-icono">
+                    <svg class="icono" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="1"></rect><line x1="9" y1="6" x2="9" y2="6.01"></line><line x1="15" y1="6" x2="15" y2="6.01"></line><line x1="9" y1="10" x2="9" y2="10.01"></line><line x1="15" y1="10" x2="15" y2="10.01"></line><line x1="9" y1="14" x2="9" y2="14.01"></line><line x1="15" y1="14" x2="15" y2="14.01"></line><line x1="9" y1="18" x2="15" y2="18"></line></svg>
+                </span>
+                <h3>Proveedores</h3>
+                <p>Salones, viajes, buzos y catering.</p>
+                <span class="acceso-boton">Ver proveedores →</span>
+            </a>
+        </div>
+
+        <section class="panel panel--avisos">
+            <h2><svg class="icono" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg> Avisos y novedades</h2>
+            <button id="btnNuevoAviso" class="hidden btn-nuevo">+ Nuevo aviso</button>
+            <div id="avisosList" class="avisos-list">
+                <p class="empty-msg">Cargando avisos...</p>
+            </div>
+        </section>
+    </main>
+
+    <script src="js/api.js"></script>
+    <script src="js/iconos.js"></script>
+    <script src="js/dashboard.js"></script>
+</body>
+</html>

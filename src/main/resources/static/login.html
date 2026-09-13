@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ingresar - Plataforma para Egresados</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="login-wrapper">
+        <div class="login-card">
+            <img src="img/logo.jpg" alt="Logo institución" class="logo-institucion" onerror="this.style.display='none'">
+            <h1>Plataforma para Egresados</h1>
+            <form id="loginForm">
+                <label for="nombreUsuario">Usuario</label>
+                <input type="text" id="nombreUsuario" required autocomplete="username">
+
+                <label for="password">Contraseña</label>
+                <input type="password" id="password" required autocomplete="current-password">
+                <button type="submit">Ingresar</button>
+                <p class="error-msg" id="errorMsg"></p>
+            </form>
+            <p class="link-secundario"><a href="registro.html">¿No tenés cuenta? Registrate</a></p>
+        </div>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/login.js"></script>
+</body>
+</html>

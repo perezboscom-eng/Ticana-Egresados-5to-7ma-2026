@@ -1,0 +1,1 @@
+Proyecto Institucional de Acevedo Castañares, Corvalan, Perez Bosco - MZ-5to-7ma-2026. Plataforma web para el egreso de una promoción: eventos (viaje, cena, buzos), avisos y proveedores (salones, viajes, catering). Panel de administración para gestionar todo. Backend en Java/Spring Boot + MySQL, frontend en HTML, CSS y JS puro.

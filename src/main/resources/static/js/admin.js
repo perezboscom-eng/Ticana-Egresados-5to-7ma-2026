@@ -55,10 +55,46 @@ async function cargarEventosAdmin() {
             <td>
                 <button class="btn-editar" onclick="editarEvento(${e.id})">Editar</button>
                 <button class="btn-eliminar" onclick="eliminarEvento(${e.id})">Eliminar</button>
+                <button class="btn-ver" onclick="toggleParticipantesAdmin(${e.id})">Ver participantes</button>
+            </td>
+        </tr>
+        <tr id="filaParticipantes-${e.id}" class="fila-participantes hidden">
+            <td colspan="6">
+                <div id="participantesAdmin-${e.id}" class="lista-participantes-admin"></div>
             </td>
         </tr>
     `).join('');
     window._eventosAdmin = eventos;
+}
+
+async function toggleParticipantesAdmin(eventoId) {
+    const fila = document.getElementById(`filaParticipantes-${eventoId}`);
+    const contenedor = document.getElementById(`participantesAdmin-${eventoId}`);
+
+    const estaAbierta = !fila.classList.contains('hidden');
+    if (estaAbierta) {
+        fila.classList.add('hidden');
+        return;
+    }
+
+    contenedor.innerHTML = 'Cargando...';
+    fila.classList.remove('hidden');
+
+    try {
+        const participantes = await apiGet(`/eventos/${eventoId}/participantes`);
+        if (!participantes.length) {
+            contenedor.innerHTML = '<p class="empty-msg">Todavía nadie se anotó a este evento.</p>';
+            return;
+        }
+        contenedor.innerHTML = `
+            <p><strong>${participantes.length} anotados:</strong></p>
+            <ul class="participantes-list">
+                ${participantes.map(u => `<li>${u.nombre} ${u.apellido} — usuario: ${u.nombreUsuario}</li>`).join('')}
+            </ul>
+        `;
+    } catch (err) {
+        contenedor.innerHTML = '<p class="empty-msg">No se pudo cargar la lista.</p>';
+    }
 }
 
 function editarEvento(id) {
@@ -219,6 +255,7 @@ function editarEmpresa(id) {
     document.getElementById('empresaPrecioHasta').value = empresa.precioHasta ?? '';
     document.getElementById('empresaImagen').value = empresa.imagen || '';
     document.getElementById('empresaServicios').value = empresa.servicios || '';
+    document.getElementById('empresaLink').value = empresa.link || '';
     document.getElementById('empresaDescripcion').value = empresa.descripcion || '';
 }
 
@@ -240,6 +277,7 @@ async function guardarEmpresa(e) {
         precioHasta: parseFloat(document.getElementById('empresaPrecioHasta').value) || 0,
         imagen: document.getElementById('empresaImagen').value,
         servicios: document.getElementById('empresaServicios').value,
+        link: document.getElementById('empresaLink').value,
         descripcion: document.getElementById('empresaDescripcion').value
     };
 

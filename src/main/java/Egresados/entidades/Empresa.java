@@ -14,6 +14,7 @@ public class Empresa {
     private String descripcion;
     private String servicios;      
     private String imagen;
+    private String link;
     private String nombre;
     private double precioDesde;
     
@@ -98,5 +99,13 @@ public class Empresa {
 
     public void setImagen(String imagen) {
         this.imagen = imagen;
+    }
+
+        public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
     }
 }

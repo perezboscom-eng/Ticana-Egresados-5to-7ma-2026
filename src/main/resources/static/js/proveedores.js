@@ -64,7 +64,7 @@ function renderEmpresas() {
             ? `${ICONOS.precio} ${(e.precioDesde || 0).toLocaleString('es-AR')} - ${(e.precioHasta || 0).toLocaleString('es-AR')}`
             : '';
 
-        return `
+                return `
         <div class="empresa-card">
             <div class="empresa-imagen">
                 ${e.imagen ? `<img src="img/${e.imagen}" alt="${e.nombre}">` : `${ICONOS.imagen} Sin foto`}
@@ -76,6 +76,7 @@ function renderEmpresas() {
             <p class="precio">${precio}</p>
             <p>${e.descripcion || ''}</p>
             <div class="tags-servicios">${tags}</div>
+            ${e.link ? `<a href="${e.link}" target="_blank" rel="noopener" class="btn-visitar-link">Visitar sitio →</a>` : ''}
         </div>`;
     }).join('');
 }

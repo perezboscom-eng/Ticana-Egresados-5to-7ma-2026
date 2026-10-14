@@ -40,6 +40,7 @@ public class EventoService implements EventoIService {
         existente.setLugar(evento.getLugar());
         existente.setPrecio(evento.getPrecio());
         existente.setDescripcion(evento.getDescripcion());
+        existente.setImagen(evento.getImagen());
         if (evento.getPromocion() != null) {
             existente.setPromocion(evento.getPromocion());
         }
@@ -47,9 +48,15 @@ public class EventoService implements EventoIService {
     }
 
     public void deleteEvento(Long id) {
+        List<Usuario> inscriptos = usuarioRepository.findParticipantes(id);
+        for (Usuario u : inscriptos) {
+            if (u.getEventosDelUsuario() != null) {
+                u.getEventosDelUsuario().removeIf(e -> e.getId().equals(id));
+                usuarioRepository.save(u);
+            }
+    }
         eventoRepository.deleteById(id);
     }
-
     public Evento inscribirUsuario(Long eventoId, Long usuarioId) {
         Evento evento = eventoRepository.findById(eventoId).orElse(null);
         Usuario usuario = usuarioRepository.findById(usuarioId).orElse(null);

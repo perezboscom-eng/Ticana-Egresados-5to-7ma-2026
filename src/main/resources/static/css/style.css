@@ -729,3 +729,73 @@ nav.main-nav .nav-link.active {
 .btn-eliminar:hover {
     filter: brightness(1.08);
 }
+.fila-participantes td {
+    background: var(--gris-fondo);
+    padding: 16px 20px;
+}
+
+.lista-participantes-admin .participantes-list li {
+    color: var(--texto);
+    font-weight: 500;
+}
+
+.btn-ver {
+    background: #fff;
+    color: var(--verde);
+    border: 1.5px solid var(--verde) !important;
+}
+
+.btn-visitar-link {
+    display: inline-block;
+    margin-top: 14px;
+    color: var(--azul);
+    font-weight: 700;
+    font-size: 0.88rem;
+    text-decoration: none;
+}
+
+.btn-visitar-link:hover {
+    text-decoration: underline;
+}
+.participantes-section {
+    margin-top: 16px;
+    padding-top: 14px;
+    border-top: 1px solid var(--gris-borde);
+}
+
+.participantes-titulo {
+    margin: 0 0 8px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--texto-suave);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+.participantes-titulo span {
+    color: var(--azul);
+    font-weight: 700;
+}
+
+.participantes-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 0.88rem;
+    max-height: 140px;
+    overflow-y: auto;
+}
+
+.participantes-list li {
+    padding: 6px 10px;
+    border-bottom: 1px dashed var(--gris-borde);
+    color: var(--texto);
+}
+
+.participantes-list li:last-child {
+    border-bottom: none;
+}
+
+.participantes-list .empty-msg {
+    padding: 6px 0;
+}

@@ -78,9 +78,16 @@ function renderEventos() {
                     <button class="btn-eliminar" onclick="eliminarEventoRapido(${e.id})">${ICONOS.eliminar} Eliminar</button>
                 ` : ''}
             </div>
-            <ul class="participantes-list" id="participantes-${e.id}"></ul>
+            <div class="participantes-section">
+                <p class="participantes-titulo">${ICONOS.capacidad} Anotados <span id="contador-${e.id}"></span></p>
+                <ul class="participantes-list" id="participantes-${e.id}">
+                    <li class="empty-msg">Cargando...</li>
+                </ul>
+            </div>
         </div>
     `).join('');
+
+    filtrados.forEach(e => verParticipantes(e.id));
 }
 
 async function inscribirme(eventoId) {
@@ -97,8 +104,14 @@ async function verParticipantes(eventoId) {
     try {
         const participantes = await apiGet(`/eventos/${eventoId}/participantes`);
         const ul = document.getElementById(`participantes-${eventoId}`);
+        const contador = document.getElementById(`contador-${eventoId}`);
         if (!ul) return;
-        ul.innerHTML = participantes.map(u => `<li>${u.nombre} ${u.apellido}</li>`).join('');
+
+        if (contador) contador.textContent = `(${participantes.length})`;
+
+        ul.innerHTML = participantes.length
+            ? participantes.map(u => `<li>${u.nombre} ${u.apellido}</li>`).join('')
+            : '<li class="empty-msg">Todavía nadie se anotó.</li>';
     } catch (err) {
         console.error(err);
     }

@@ -80,7 +80,7 @@ async function crearAvisoRapido() {
 
     const promoId = usuarioActual.promocion ? usuarioActual.promocion.id : null;
     try {
-        await apiPost('/avisos', { titulo, contenido, fechaPublicacion, promocion: promoId ? { id: promoId } : null });
+        await apiPost(`/avisos?adminId=${usuarioActual.id}`,  { titulo, contenido, fechaPublicacion, promocion: promoId ? { id: promoId } : null });
         await cargarAvisos();
     } catch (err) {
         alert('No se pudo crear el aviso.');

@@ -37,7 +37,8 @@ function getUsuarioActual() {
 }
 
 function setUsuarioActual(usuario) {
-    localStorage.setItem('usuarioActual', JSON.stringify(usuario));
+    const { password, ...seguro } = usuario;
+    localStorage.setItem('usuarioActual', JSON.stringify(seguro));
 }
 
 function cerrarSesion() {
@@ -56,4 +57,16 @@ function exigirSesion() {
 
 function esAdmin(usuario) {
     return usuario && usuario.rol && usuario.rol.toLowerCase() === 'admin';
+}
+
+async function cargarSubtituloPromocion(usuario) {
+    const el = document.getElementById('promoSubtitulo');
+    if (!el || !usuario || !usuario.promocion || !usuario.promocion.id) return;
+    try {
+        const promo = await apiGet(`/promociones/${usuario.promocion.id}`);
+        const colegio = promo.colegio ? `${promo.colegio} — ` : '';
+        el.textContent = `${colegio}${promo.nombre} (${promo.anio})`;
+    } catch (err) {
+        console.error(err);
+    }
 }

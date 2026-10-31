@@ -35,9 +35,12 @@ public class AvisoController {
     }
 
     @PostMapping
-    public Aviso createAviso(@RequestBody Aviso aviso) {
-        return avisoService.saveAviso(aviso);
+    public Aviso createAviso(@RequestBody Aviso aviso, @RequestParam Long adminId) {
+    if (!usuarioService.esAdmin(adminId)) {
+        return null;
     }
+    return avisoService.saveAviso(aviso);
+}
 
     @PutMapping("/{id}")
     public Aviso updateAviso(@PathVariable Long id, @RequestBody Aviso aviso, @RequestParam Long adminId) {

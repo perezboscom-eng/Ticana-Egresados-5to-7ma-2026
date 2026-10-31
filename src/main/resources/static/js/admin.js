@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     document.getElementById('btnLogout').addEventListener('click', cerrarSesion);
+    cargarSubtituloPromocion(usuarioActual);
 
     document.querySelectorAll('.admin-tab-btn').forEach(btn => {
         btn.addEventListener('click', () => {
@@ -135,7 +136,7 @@ async function guardarEvento(e) {
         if (id) {
             await apiPut(`/eventos/${id}?adminId=${usuarioActual.id}`, evento);
         } else {
-            await apiPost('/eventos', evento);
+            await apiPost(`/eventos?adminId=${usuarioActual.id}`, evento);
         }
         resetEventoForm();
         await cargarEventosAdmin();
@@ -204,7 +205,7 @@ async function guardarAviso(e) {
         if (id) {
             await apiPut(`/avisos/${id}?adminId=${usuarioActual.id}`, aviso);
         } else {
-            await apiPost('/avisos', aviso);
+            await apiPost(`/avisos?adminId=${usuarioActual.id}`, aviso);
         }
         resetAvisoForm();
         await cargarAvisosAdmin();
@@ -318,11 +319,13 @@ function previsualizarImagen(idCampo, idPreview) {
         preview.innerHTML = `<img src="img/${nombreArchivo}" style="max-width:120px;max-height:90px;display:block;margin-top:6px;border-radius:6px;">`;
     };
     img.onerror = () => {
-        preview.innerHTML = '⚠️ No se encontró ese archivo en la carpeta img ).';
+        preview.innerHTML = '⚠️ No se encontró ese archivo en la carpeta img.';
         preview.style.color = '#b3392f';
     };
     img.src = `img/${nombreArchivo}`;
 }
+
+/* ---------- USUARIOS ---------- */
 
 async function cargarUsuariosAdmin() {
     const usuarios = await apiGet('/usuarios');
@@ -342,12 +345,12 @@ async function cargarUsuariosAdmin() {
             <td>${promo}</td>
             <td>${u.rol || 'alumno'}</td>
             <td>
-                ${esAdminUsuario
-                    ? `<button class="btn-eliminar" onclick="cambiarRolUsuario(${u.id}, 'alumno')">Quitar admin</button>`
-                    : `<button class="btn-editar" onclick="cambiarRolUsuario(${u.id}, 'admin')">Hacer admin</button>`}
                 ${esUnoMismo
-                    ? ''
-                    : `<button class="btn-eliminar" onclick="eliminarUsuarioAdmin(${u.id})">Eliminar</button>`}
+                    ? '<em>(vos)</em>'
+                    : `${esAdminUsuario
+                        ? `<button class="btn-eliminar" onclick="cambiarRolUsuario(${u.id}, 'alumno')">Quitar admin</button>`
+                        : `<button class="btn-editar" onclick="cambiarRolUsuario(${u.id}, 'admin')">Hacer admin</button>`}
+                       <button class="btn-eliminar" onclick="eliminarUsuarioAdmin(${u.id})">Eliminar</button>`}
             </td>
         </tr>`;
     }).join('');

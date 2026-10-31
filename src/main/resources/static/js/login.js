@@ -16,19 +16,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
         try {
             const res = await fetch(`${API_BASE}/usuarios/login`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ nombreUsuario, password })
-            });
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ nombreUsuario, password })
+        });
 
-            const usuario = await res.json();
+        if (res.status === 401) {
+            errorMsg.textContent = 'Usuario o contraseña incorrectos.';
+        return;
+        }
+    if (!res.ok) {
+    throw new Error('Error del servidor');
+    }
 
-            if (!usuario) {
-                errorMsg.textContent = 'Usuario o contraseña incorrectos.';
-                return;
-            }
-
-            setUsuarioActual(usuario);
+    const usuario = await res.json();
+    setUsuarioActual(usuario);
             window.location.href = 'index.html';
         } catch (err) {
             errorMsg.textContent = 'No se pudo conectar con el servidor.';

@@ -36,9 +36,12 @@ public class EventoController {
     }
 
     @PostMapping
-    public Evento createEvento(@RequestBody Evento evento) {
-        return eventoService.saveEvento(evento);
+    public Evento createEvento(@RequestBody Evento evento, @RequestParam Long adminId) {
+    if (!usuarioService.esAdmin(adminId)) {
+        return null;
     }
+    return eventoService.saveEvento(evento);
+}
 
     @PutMapping("/{id}")
     public Evento updateEvento(@PathVariable Long id, @RequestBody Evento evento, @RequestParam Long adminId) {

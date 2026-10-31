@@ -18,13 +18,15 @@ public class UsuarioService implements UsuarioIService {
     public List<Usuario> findByPromocion(Long promocionId) {
         return usuarioRepository.findByPromocionId(promocionId);
     }
+    public boolean existeNombreUsuario(String nombreUsuario) {
+    return usuarioRepository.existsByNombreUsuario(nombreUsuario);
+}
 
     public Usuario saveUsuario(Usuario usuario) {
-        if (usuario.getRol() == null || usuario.getRol().isBlank()) {
-            usuario.setRol("alumno");
-        }
-        return usuarioRepository.save(usuario);
-    }
+    usuario.setId(null);        
+    usuario.setRol("alumno");   
+    return usuarioRepository.save(usuario);
+}
 
     public boolean esAdmin(Long usuarioId) {
         Usuario usuario = usuarioRepository.findById(usuarioId).orElse(null);

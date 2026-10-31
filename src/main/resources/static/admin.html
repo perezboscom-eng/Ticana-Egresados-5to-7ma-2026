@@ -12,7 +12,7 @@
             <img src="img/logo.jpg" alt="Logo institución" class="logo-institucion" onerror="this.style.display='none'">
             <div>
                 <h1>Panel de Administración</h1>
-                <span class="subtitulo">Nombre de la Institución</span>
+                <span class="subtitulo" id="promoSubtitulo"></span>
             </div>
         </div>
         <div class="user-info">
@@ -59,12 +59,8 @@
                 </div>
                 <div>
                     <label for="eventoImagen">Imagen (nombre de archivo)</label>
-                    <input type="text" id="eventoImagen" placeholder="ej: bariloche.jpg" oninput="previsualizarImagen('eventoImagen', 'eventoImagenPreview')">
+                    <input type="text" id="eventoImagen" placeholder="ej: bariloche.webp" oninput="previsualizarImagen('eventoImagen', 'eventoImagenPreview')">
                     <small id="eventoImagenPreview"></small>
-                </div>
-                <div class="full">
-                    <label for="empresaLink">Sitio web / red social</label>
-                    <input type="text" id="empresaLink" placeholder="ej: https://instagram.com/miempresa">
                 </div>
                 <div class="full">
                     <label for="eventoDescripcion">Descripción</label>
@@ -156,6 +152,10 @@
                 <div class="full">
                     <label for="empresaServicios">Servicios (separados por coma)</label>
                     <input type="text" id="empresaServicios" placeholder="ej: DJ, sonido, luces">
+                </div>
+                <div class="full">
+                    <label for="empresaLink">Sitio web / red social</label>
+                    <input type="text" id="empresaLink" placeholder="ej: https://instagram.com/miempresa">
                 </div>
                 <div class="full">
                     <label for="empresaDescripcion">Descripción</label>

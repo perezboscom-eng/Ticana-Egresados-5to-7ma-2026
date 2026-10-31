@@ -4,6 +4,7 @@ import Egresados.entidades.Usuario;
 
 public interface UsuarioIService {
     List<Usuario> findAllUsuarios();
+    boolean existeNombreUsuario(String nombreUsuario);
     List<Usuario> findByPromocion(Long promocionId);
     Usuario saveUsuario(Usuario usuario);
     Usuario login(Usuario usuario);

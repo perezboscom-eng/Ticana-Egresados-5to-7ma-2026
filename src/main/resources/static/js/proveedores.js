@@ -17,6 +17,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     document.getElementById('saludoUsuario').textContent =
         `Hola, ${usuarioActual.nombre || usuarioActual.nombreUsuario}`;
     document.getElementById('btnLogout').addEventListener('click', cerrarSesion);
+    cargarSubtituloPromocion(usuarioActual);
 
     if (esAdmin(usuarioActual)) {
         document.getElementById('linkAdmin').classList.remove('hidden');
@@ -64,7 +65,7 @@ function renderEmpresas() {
             ? `${ICONOS.precio} ${(e.precioDesde || 0).toLocaleString('es-AR')} - ${(e.precioHasta || 0).toLocaleString('es-AR')}`
             : '';
 
-                return `
+        return `
         <div class="empresa-card">
             <div class="empresa-imagen">
                 ${e.imagen ? `<img src="img/${e.imagen}" alt="${e.nombre}">` : `${ICONOS.imagen} Sin foto`}

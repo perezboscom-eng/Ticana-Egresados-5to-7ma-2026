@@ -31,27 +31,48 @@ public class UsuarioController {
         return usuarioService.findByPromocion(promocionId);
     }
 
-    @PostMapping
-    public Usuario createUsuario(@RequestBody Usuario usuario) {
-        return usuarioService.saveUsuario(usuario);
+        @PostMapping
+        public ResponseEntity<?> createUsuario(@RequestBody Usuario usuario) {
+        if (usuario.getNombreUsuario() == null || usuario.getNombreUsuario().isBlank()) {
+            return ResponseEntity.badRequest().body("El nombre de usuario es obligatorio.");
+        }
+        if (usuario.getPassword() == null || usuario.getPassword().length() < 6) {
+            return ResponseEntity.badRequest().body("La contraseña debe tener al menos 6 caracteres.");
+        }
+        usuario.setNombreUsuario(usuario.getNombreUsuario().trim());
+
+        if (usuarioService.existeNombreUsuario(usuario.getNombreUsuario())) {
+            return ResponseEntity.status(409).body("Ese nombre de usuario ya existe.");
+        }
+        return ResponseEntity.ok(usuarioService.saveUsuario(usuario));
     }
 
-        @PostMapping("/login")
-    public Usuario login(@RequestBody Usuario usuario) {
-        return usuarioService.login(usuario);
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody Usuario usuario) {
+    Usuario encontrado = usuarioService.login(usuario);
+    if (encontrado == null) {
+        return ResponseEntity.status(401).body("Usuario o contraseña incorrectos.");
     }
+    return ResponseEntity.ok(encontrado);
+}
 
-        @PutMapping("/{id}/rol")
+    @PutMapping("/{id}/rol")
     public ResponseEntity<?> cambiarRol(@PathVariable Long id, @RequestParam String rol, @RequestParam Long adminId) {
-        if (!usuarioService.esAdmin(adminId)) {
-            return ResponseEntity.status(403).body("No tenés permisos de administrador.");
-        }
-        Usuario actualizado = usuarioService.cambiarRol(id, rol);
-        if (actualizado == null) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(actualizado);
+    if (!usuarioService.esAdmin(adminId)) {
+        return ResponseEntity.status(403).body("No tenés permisos de administrador.");
     }
+    if (!rol.equals("admin") && !rol.equals("alumno")) {
+        return ResponseEntity.badRequest().body("Rol inválido.");
+    }
+    if (id.equals(adminId)) {
+        return ResponseEntity.badRequest().body("No podés cambiar tu propio rol.");
+    }
+    Usuario actualizado = usuarioService.cambiarRol(id, rol);
+    if (actualizado == null) {
+        return ResponseEntity.notFound().build();
+    }
+    return ResponseEntity.ok(actualizado);
+}
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> eliminarUsuario(@PathVariable Long id, @RequestParam Long adminId) {

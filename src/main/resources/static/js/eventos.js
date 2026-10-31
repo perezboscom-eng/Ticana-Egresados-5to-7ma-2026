@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     document.getElementById('saludoUsuario').textContent =
         `Hola, ${usuarioActual.nombre || usuarioActual.nombreUsuario}`;
     document.getElementById('btnLogout').addEventListener('click', cerrarSesion);
+    cargarSubtituloPromocion(usuarioActual);
 
     if (esAdmin(usuarioActual)) {
         document.getElementById('linkAdmin').classList.remove('hidden');
@@ -129,7 +130,7 @@ async function crearEventoRapido() {
 
     const promoId = usuarioActual.promocion ? usuarioActual.promocion.id : null;
     try {
-        await apiPost('/eventos', {
+        await apiPost(`/eventos?adminId=${usuarioActual.id}`,  {
             tipo, nombre, fecha, lugar, precio, descripcion,
             promocion: promoId ? { id: promoId } : null
         });

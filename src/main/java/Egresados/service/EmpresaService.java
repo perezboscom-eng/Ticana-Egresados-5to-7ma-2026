@@ -37,6 +37,7 @@ public class EmpresaService implements EmpresaIService {
         existente.setDescripcion(empresa.getDescripcion());
         existente.setServicios(empresa.getServicios());
         existente.setImagen(empresa.getImagen());
+        existente.setLink(empresa.getLink());
         return empresaRepository.save(existente);
     }
 

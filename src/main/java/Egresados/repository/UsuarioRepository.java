@@ -7,6 +7,7 @@ import Egresados.entidades.Usuario;
 
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
     List<Usuario> findByPromocionId(Long promocionId);
+    boolean existsByNombreUsuario(String nombreUsuario);
     Usuario findByNombreUsuarioAndPassword(String nombreUsuario, String password);
 
     @Query("SELECT u FROM Usuario u JOIN u.EventosDelUsuario e WHERE e.id = :eventoId")
